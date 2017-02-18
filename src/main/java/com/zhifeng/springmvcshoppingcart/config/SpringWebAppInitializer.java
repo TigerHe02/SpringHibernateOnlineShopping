@@ -11,6 +11,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
  
+//equals with web.xml
+//configure the springServlet, contextLoaderListener, and encodingFilter
+//
 public class SpringWebAppInitializer implements WebApplicationInitializer {
  
     @Override
@@ -18,20 +21,24 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
         appContext.register(ApplicationContextConfig.class);
  
+        //springDispatcher 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("SpringDispatcher",
                 new DispatcherServlet(appContext));
         dispatcher.setLoadOnStartup(1);
+        //urls with this pattern will be handled by dispatcher
         dispatcher.addMapping("/");
          
          
+        //configure contextLoaderListener
         ContextLoaderListener contextLoaderListener = new ContextLoaderListener(appContext);
  
         servletContext.addListener(contextLoaderListener);
          
          
-        // Filter.
+        // Filter
         FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter", CharacterEncodingFilter.class);
  
+        //urls encoding
         fr.setInitParameter("encoding", "UTF-8");
         fr.setInitParameter("forceEncoding", "true");
         fr.addMappingForUrlPatterns(null, true, "/*");

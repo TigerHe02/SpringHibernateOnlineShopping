@@ -140,6 +140,7 @@ public class MainController {
     @RequestMapping(value = { "/shoppingCart" }, method = RequestMethod.POST)
     public String shoppingCartUpdateQty(HttpServletRequest request, //
             Model model, //
+            //equals with model.addAsstribute("cartForm", cartForm)
             @ModelAttribute("cartForm") CartInfo cartForm) {
  
         CartInfo cartInfo = Utils.getCartInSession(request);

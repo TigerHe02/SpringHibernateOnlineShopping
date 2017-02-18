@@ -7,20 +7,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import com.zhifeng.springmvcshoppingcart.authentication.MyDBAuthenticationService;
+import com.zhifeng.springmvcshoppingcart.authentication.AuthenticationService;
  
+//configure the accessibility of the urls to accounts
 @Configuration
-// @EnableWebSecurity = @EnableWebMVCSecurity + Extra features
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
    @Autowired
-   MyDBAuthenticationService myDBAauthenticationService;
+   AuthenticationService myDBAauthenticationService;
  
    @Autowired
    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
  
-       // For User in database.
        auth.userDetailsService(myDBAauthenticationService);
  
    }
@@ -30,17 +29,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
        http.csrf().disable();
  
-       // The pages requires login as EMPLOYEE or MANAGER.
-       // If no login, it will redirect to /login page.
+       // these pages are available to EMPLOYEE or MANAGER
        http.authorizeRequests().antMatchers("/orderList","/order", "/accountInfo")//
                .access("hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER')");
  
-       // For MANAGER only.
+       // these pages are available to MANAGER
        http.authorizeRequests().antMatchers("/product").access("hasRole('ROLE_MANAGER')");
  
-       // When the user has logged in as XX.
-       // But access a page that requires role YY,
-       // AccessDeniedException will throw.
+       // if not sufficient authorization, AccessDeniedException will throw.
        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
  
        // Config for Login Form

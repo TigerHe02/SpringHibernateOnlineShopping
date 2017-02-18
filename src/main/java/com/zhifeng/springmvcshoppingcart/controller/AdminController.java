@@ -30,6 +30,7 @@ import com.zhifeng.springmvcshoppingcart.model.PaginationResult;
 import com.zhifeng.springmvcshoppingcart.model.ProductInfo;
 import com.zhifeng.springmvcshoppingcart.validator.ProductInfoValidator;
  
+//the controller components
 @Controller
 // Enable Hibernate Transaction.
 @Transactional
@@ -123,6 +124,7 @@ public class AdminController {
     // Avoid UnexpectedRollbackException (See more explanations)
     @Transactional(propagation = Propagation.NEVER)
     public String productSave(Model model, //
+    		//add 
             @ModelAttribute("productForm") @Validated ProductInfo productInfo, //
             BindingResult result, //
             final RedirectAttributes redirectAttributes) {

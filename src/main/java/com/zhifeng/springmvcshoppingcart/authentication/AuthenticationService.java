@@ -16,39 +16,37 @@ import com.zhifeng.springmvcshoppingcart.dao.AccountDAO;
 import com.zhifeng.springmvcshoppingcart.entity.Account;
  
 @Service
-public class MyDBAuthenticationService implements UserDetailsService {
+public class AuthenticationService implements UserDetailsService {
  
+	//this is to configure different accounts with different roles
     @Autowired
     private AccountDAO accountDAO;
  
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    	//find account
         Account account = accountDAO.findAccount(username);
         System.out.println("Account= " + account);
  
         if (account == null) {
-            throw new UsernameNotFoundException("User " //
-                    + username + " was not found in the database");
+            throw new UsernameNotFoundException("User " + username + " not found!");
         }
  
-        // EMPLOYEE,MANAGER,..
+        // get the role of an account
         String role = account.getUserRole();
  
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
  
-        // ROLE_EMPLOYEE, ROLE_MANAGER
+        // assign a role to the account
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
  
         grantList.add(authority);
  
-        boolean enabled = account.isActive();
-        boolean accountNonExpired = true;
-        boolean credentialsNonExpired = true;
-        boolean accountNonLocked = true;
+        boolean isActive = account.isActive();
  
+        //initialize an account with details
         UserDetails userDetails = (UserDetails) new User(account.getUserName(), //
-                account.getPassword(), enabled, accountNonExpired, //
-                credentialsNonExpired, accountNonLocked, grantList);
+                account.getPassword(), isActive, true, true, true, grantList);
  
         return userDetails;
     }

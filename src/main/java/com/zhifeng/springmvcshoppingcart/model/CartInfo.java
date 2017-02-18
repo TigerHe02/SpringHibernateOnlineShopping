@@ -9,6 +9,7 @@ public class CartInfo {
  
     private CustomerInfo customerInfo;
  
+    //each element is product--quantity--amount
     private final List<CartLineInfo> cartLines = new ArrayList<CartLineInfo>();
  
     public CartInfo() {
@@ -35,6 +36,7 @@ public class CartInfo {
         return this.cartLines;
     }
  
+    //find product--quantity--amount by product code
     private CartLineInfo findLineByCode(String code) {
         for (CartLineInfo line : this.cartLines) {
             if (line.getProductInfo().getCode().equals(code)) {
@@ -44,7 +46,10 @@ public class CartInfo {
         return null;
     }
  
+    //add a product to cart and update the quantity
+    //update the CartLineInfo actually
     public void addProduct(ProductInfo productInfo, int quantity) {
+    	//find a line by product code
         CartLineInfo line = this.findLineByCode(productInfo.getCode());
  
         if (line == null) {

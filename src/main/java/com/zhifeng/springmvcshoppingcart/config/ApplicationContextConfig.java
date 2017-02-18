@@ -26,8 +26,10 @@ import com.zhifeng.springmvcshoppingcart.dao.impl.AccountDAOImpl;
 import com.zhifeng.springmvcshoppingcart.dao.impl.OrderDAOImpl;
 import com.zhifeng.springmvcshoppingcart.dao.impl.ProductDAOImpl;
  
+//configure beans, viewResolver, dataSource, sessionFactory, transactionManager, etc
 @Configuration
-@ComponentScan("org.o7planning.springmvcshoppingcart.*")
+//scan the beans under this dictionary
+@ComponentScan("com.zhifeng.springmvcshoppingcart.*")
 @EnableTransactionManagement
 // Load to Environment.
 @PropertySource("classpath:ds-hibernate-cfg.properties")
@@ -38,6 +40,7 @@ public class ApplicationContextConfig {
     @Autowired
     private Environment env;
  
+    //validator message
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource rb = new ResourceBundleMessageSource();
@@ -46,6 +49,7 @@ public class ApplicationContextConfig {
         return rb;
     }
  
+    //viewResolver of the dispatcher
     @Bean(name = "viewResolver")
     public InternalResourceViewResolver getViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -65,6 +69,7 @@ public class ApplicationContextConfig {
         return commonsMultipartResolver;
     }
  
+    //configure database
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -80,11 +85,13 @@ public class ApplicationContextConfig {
         return dataSource;
     }
  
+    //inject dataSource to sessionFactory for management
     @Autowired
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
         Properties properties = new Properties();
  
+        //hibernate properties configuration
         // See: ds-hibernate-cfg.properties
         properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
@@ -93,8 +100,9 @@ public class ApplicationContextConfig {
  
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
          
+        //inject entities and dataSource
         // Package contain entity classes
-        factoryBean.setPackagesToScan(new String[] { "org.o7planning.springmvcshoppingcart.entity" });
+        factoryBean.setPackagesToScan(new String[] { "com.zhifeng.springmvcshoppingcart.entity" });
         factoryBean.setDataSource(dataSource);
         factoryBean.setHibernateProperties(properties);
         factoryBean.afterPropertiesSet();
@@ -104,6 +112,7 @@ public class ApplicationContextConfig {
         return sf;
     }
  
+    //configure transactionManager to manage sessionFactory 
     @Autowired
     @Bean(name = "transactionManager")
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
@@ -112,6 +121,7 @@ public class ApplicationContextConfig {
         return transactionManager;
     }
  
+    //DAO beans
     @Bean(name = "accountDAO")
     public AccountDAO getApplicantDAO() {
         return new AccountDAOImpl();
