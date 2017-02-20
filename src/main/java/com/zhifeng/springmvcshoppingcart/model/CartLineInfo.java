@@ -1,5 +1,7 @@
 package com.zhifeng.springmvcshoppingcart.model;
  
+// cartLineInfo is a line in the cart of the form: product info--quantity
+// a cart has many cartLineInfo
 public class CartLineInfo {
  
     private ProductInfo productInfo;

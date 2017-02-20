@@ -27,6 +27,7 @@ import com.zhifeng.springmvcshoppingcart.dao.impl.OrderDAOImpl;
 import com.zhifeng.springmvcshoppingcart.dao.impl.ProductDAOImpl;
  
 //configure beans, viewResolver, dataSource, sessionFactory, transactionManager, etc
+//equals with the --servlet.xml file
 @Configuration
 //scan the beans under this dictionary
 @ComponentScan("com.zhifeng.springmvcshoppingcart.*")

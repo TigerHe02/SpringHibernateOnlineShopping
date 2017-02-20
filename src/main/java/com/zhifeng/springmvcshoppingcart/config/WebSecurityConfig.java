@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                .access("hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER')");
  
        // these pages are available to MANAGER
+       // only manager can modify the product
        http.authorizeRequests().antMatchers("/product").access("hasRole('ROLE_MANAGER')");
  
        // if not sufficient authorization, AccessDeniedException will throw.
