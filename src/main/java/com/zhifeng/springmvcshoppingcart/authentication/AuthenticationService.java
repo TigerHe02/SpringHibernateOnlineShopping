@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 
 import com.zhifeng.springmvcshoppingcart.dao.AccountDAO;
 import com.zhifeng.springmvcshoppingcart.entity.Account;
- 
+
+//find the account by username
+//assign a role to the account by List<GrantedAuthority>
+//return the account with authorities
 @Service
 public class AuthenticationService implements UserDetailsService {
  

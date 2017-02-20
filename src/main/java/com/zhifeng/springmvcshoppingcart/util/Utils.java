@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.zhifeng.springmvcshoppingcart.model.CartInfo;
  
+//get shopping cart in current session
+//the cart can be retrieved from the current session holding the request
 public class Utils {
  
     // Products in Cart, stored in Session.
@@ -17,6 +19,7 @@ public class Utils {
             cartInfo = new CartInfo();
             
             // And store to Session.
+            // to add an attribute to a session
             request.getSession().setAttribute("myCart", cartInfo);
         }
  
@@ -27,10 +30,12 @@ public class Utils {
         request.getSession().removeAttribute("myCart");
     }
  
+    //save the latest updated cart
     public static void storeLastOrderedCartInSession(HttpServletRequest request, CartInfo cartInfo) {
         request.getSession().setAttribute("lastOrderedCart", cartInfo);
     }
     
+  //return the latest updated cart
     public static CartInfo getLastOrderedCartInSession(HttpServletRequest request) {
         return (CartInfo) request.getSession().getAttribute("lastOrderedCart");
     }

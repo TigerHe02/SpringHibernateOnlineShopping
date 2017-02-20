@@ -39,6 +39,7 @@ public class ProductDAOImpl implements ProductDAO {
         return new ProductInfo(product.getCode(), product.getName(), product.getPrice());
     }
  
+    //save a product. Need to check if is a new product
     @Override
     public void save(ProductInfo productInfo) {
         String code = productInfo.getCode();
@@ -59,11 +60,13 @@ public class ProductDAOImpl implements ProductDAO {
         product.setPrice(productInfo.getPrice());
  
         if (productInfo.getFileData() != null) {
+        	//get the bytes of the image in productInfo, save it to the product entity 
             byte[] image = productInfo.getFileData().getBytes();
             if (image != null && image.length > 0) {
                 product.setImage(image);
             }
         }
+        //only if is a product
         if (isNew) {
             this.sessionFactory.getCurrentSession().persist(product);
         }
@@ -71,6 +74,7 @@ public class ProductDAOImpl implements ProductDAO {
         this.sessionFactory.getCurrentSession().flush();
     }
  
+    //find some products
     @Override
     public PaginationResult<ProductInfo> queryProducts(int page, int maxResult, int maxNavigationPage,
             String likeName) {
@@ -91,6 +95,7 @@ public class ProductDAOImpl implements ProductDAO {
         return new PaginationResult<ProductInfo>(query, page, maxResult, maxNavigationPage);
     }
  
+    //find all products
     @Override
     public PaginationResult<ProductInfo> queryProducts(int page, int maxResult, int maxNavigationPage) {
         return queryProducts(page, maxResult, maxNavigationPage, null);

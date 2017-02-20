@@ -45,6 +45,7 @@ public class OrderDAOImpl implements OrderDAO {
         return value;
     }
  
+    //save cart into order, and save cartLine info orderDetail
     @Override
     public void saveOrder(CartInfo cartInfo) {
         Session session = sessionFactory.getCurrentSession();
@@ -108,6 +109,7 @@ public class OrderDAOImpl implements OrderDAO {
         return (Order) crit.uniqueResult();
     }
  
+    //convert the order object into orderInfo object
     @Override
     public OrderInfo getOrderInfo(String orderId) {
         Order order = this.findOrder(orderId);
@@ -119,6 +121,7 @@ public class OrderDAOImpl implements OrderDAO {
                 order.getCustomerAddress(), order.getCustomerEmail(), order.getCustomerPhone());
     }
  
+    //find all the order details of an order
     @Override
     public List<OrderDetailInfo> listOrderDetailInfos(String orderId) {
         String sql = "Select new " + OrderDetailInfo.class.getName() //

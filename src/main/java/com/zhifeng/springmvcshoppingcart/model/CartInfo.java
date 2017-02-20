@@ -2,7 +2,8 @@ package com.zhifeng.springmvcshoppingcart.model;
  
 import java.util.ArrayList;
 import java.util.List;
- 
+
+//the information of a cart is stored in multiple cartLines 
 public class CartInfo {
  
     private int orderNum;
