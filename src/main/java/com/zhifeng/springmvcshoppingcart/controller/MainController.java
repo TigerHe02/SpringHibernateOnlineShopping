@@ -159,6 +159,7 @@ public class MainController {
         return "shoppingCart";
     }
  
+    // show customer information
     // GET: Enter customer information.
     @RequestMapping(value = { "/shoppingCartCustomer" }, method = RequestMethod.GET)
     public String shoppingCartCustomerForm(HttpServletRequest request, Model model) {
@@ -203,6 +204,7 @@ public class MainController {
         cartInfo.setCustomerInfo(customerForm);
  
         // Redirect to Confirmation page.
+        // show the shopping cart
         return "redirect:/shoppingCartConfirmation";
     }
  
@@ -223,6 +225,8 @@ public class MainController {
         return "shoppingCartConfirmation";
     }
  
+    // save shopping cart information
+    // save the shopping cart to order
     // POST: Send Cart (Save).
     @RequestMapping(value = { "/shoppingCartConfirmation" }, method = RequestMethod.POST)
     // Avoid UnexpectedRollbackException (See more explanations)
@@ -239,6 +243,7 @@ public class MainController {
             return "redirect:/shoppingCartCustomer";
         }
         try {
+        	//save the shopping cart to order
             orderDAO.saveOrder(cartInfo);
         } catch (Exception e) {
             // Need: Propagation.NEVER?
@@ -251,6 +256,7 @@ public class MainController {
         Utils.storeLastOrderedCartInSession(request, cartInfo);
  
         // Redirect to successful page.
+        // show that the order is submitted
         return "redirect:/shoppingCartFinalize";
     }
  
