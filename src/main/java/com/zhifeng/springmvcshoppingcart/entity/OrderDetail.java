@@ -35,7 +35,9 @@ public class OrderDetail implements Serializable {
         this.id = id;
     }
  
+    //one order has many order details
     @ManyToOne(fetch = FetchType.LAZY)
+    //the column that represents order in the orderDetail table 
     @JoinColumn(name = "ORDER_ID", nullable = false, //
     foreignKey = @ForeignKey(name = "ORDER_DETAIL_ORD_FK") )
     public Order getOrder() {
