@@ -25,6 +25,7 @@ public class AuthenticationService implements UserDetailsService {
     @Autowired
     private AccountDAO accountDAO;
  
+    //find a user by username and assign a role to the user
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	//find account
