@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.zhifeng.springmvcshoppingcart.dao.AccountDAO;
 import com.zhifeng.springmvcshoppingcart.entity.Account;
 
+//authority manager
 //find the account by username
 //assign a role to the account by List<GrantedAuthority>
 //return the account with authorities
@@ -39,16 +40,18 @@ public class AuthenticationService implements UserDetailsService {
         // get the role of an account
         String role = account.getUserRole();
  
+        // the authorities of the account
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
  
         // assign a role to the account
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
  
+        //add the role to the authorities
         grantList.add(authority);
  
         boolean isActive = account.isActive();
  
-        //initialize an account with details
+        //initialize an account with details and its authorities
         UserDetails userDetails = (UserDetails) new User(account.getUserName(), //
                 account.getPassword(), isActive, true, true, true, grantList);
  

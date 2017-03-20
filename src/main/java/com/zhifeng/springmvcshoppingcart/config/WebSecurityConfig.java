@@ -9,7 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import com.zhifeng.springmvcshoppingcart.authentication.AuthenticationService;
  
-//configure the accessibility of the urls to accounts
+//configure the accessibility of the urls to roles
+//roles and corresponding urls
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

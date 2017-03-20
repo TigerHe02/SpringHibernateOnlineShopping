@@ -13,7 +13,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  
 //equals with web.xml
 //configure the springServlet, contextLoaderListener, and encodingFilter
-//
+//initialize spring web application
 public class SpringWebAppInitializer implements WebApplicationInitializer {
  
     @Override
@@ -22,6 +22,7 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
         appContext.register(ApplicationContextConfig.class);
  
         //springDispatcher 
+        //initialize a servlet
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("SpringDispatcher",
                 new DispatcherServlet(appContext));
         dispatcher.setLoadOnStartup(1);
@@ -38,7 +39,7 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
         // Filter
         FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter", CharacterEncodingFilter.class);
  
-        //urls encoding
+        //urls encoding, i.e., how the url is encoded
         fr.setInitParameter("encoding", "UTF-8");
         fr.setInitParameter("forceEncoding", "true");
         fr.addMappingForUrlPatterns(null, true, "/*");

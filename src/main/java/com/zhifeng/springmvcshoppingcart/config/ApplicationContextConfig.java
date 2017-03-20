@@ -26,7 +26,8 @@ import com.zhifeng.springmvcshoppingcart.dao.impl.AccountDAOImpl;
 import com.zhifeng.springmvcshoppingcart.dao.impl.OrderDAOImpl;
 import com.zhifeng.springmvcshoppingcart.dao.impl.ProductDAOImpl;
  
-//configure beans, viewResolver, dataSource, sessionFactory, transactionManager, etc
+//configure beans, viewResolver of the servlet, dataSource, sessionFactory, transactionManager, etc
+//viewResolver, dataSource, sessionFactory are all beans
 //equals with the --servlet.xml file
 @Configuration
 //scan the beans under this dictionary
@@ -51,6 +52,7 @@ public class ApplicationContextConfig {
     }
  
     //viewResolver of the dispatcher
+    //the prefix and suffix of the web pages
     @Bean(name = "viewResolver")
     public InternalResourceViewResolver getViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -71,6 +73,7 @@ public class ApplicationContextConfig {
     }
  
     //configure database
+    //bean name of the dataSource
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -114,6 +117,8 @@ public class ApplicationContextConfig {
     }
  
     //configure transactionManager to manage sessionFactory 
+    //get a hibernate transaction manager
+    //database management
     @Autowired
     @Bean(name = "transactionManager")
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {

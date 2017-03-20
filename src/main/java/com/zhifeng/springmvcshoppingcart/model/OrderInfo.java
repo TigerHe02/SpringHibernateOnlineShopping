@@ -1,6 +1,7 @@
 package com.zhifeng.springmvcshoppingcart.model;
  
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
  
 public class OrderInfo {
@@ -107,5 +108,6 @@ public class OrderInfo {
     public void setDetails(List<OrderDetailInfo> details) {
         this.details = details;
     }
+    
  
 }
