@@ -14,6 +14,7 @@ import com.zhifeng.springmvcshoppingcart.entity.Account;
 @Transactional
 public class AccountDAOImpl implements AccountDAO {
     
+	//use the bean defined in application context
     @Autowired
     private SessionFactory sessionFactory;
  

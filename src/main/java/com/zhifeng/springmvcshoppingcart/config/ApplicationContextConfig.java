@@ -127,6 +127,7 @@ public class ApplicationContextConfig {
         return transactionManager;
     }
  
+    //other beans are @service, @component, etc.
     //DAO beans
     @Bean(name = "accountDAO")
     public AccountDAO getApplicantDAO() {

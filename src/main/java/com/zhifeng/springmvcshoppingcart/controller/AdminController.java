@@ -73,9 +73,11 @@ public class AdminController {
         return "login";
     }
  
+    //user information of current user
     @RequestMapping(value = { "/accountInfo" }, method = RequestMethod.GET)
     public String accountInfo(Model model) {
  
+    	//get current user
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(userDetails.getPassword());
         System.out.println(userDetails.getUsername());
@@ -85,6 +87,7 @@ public class AdminController {
         return "accountInfo";
     }
  
+    //show all the orders
     @RequestMapping(value = { "/orderList" }, method = RequestMethod.GET)
     public String orderList(Model model, //
             @RequestParam(value = "page", defaultValue = "1") String pageStr) {
@@ -103,6 +106,7 @@ public class AdminController {
         return "orderList";
     }
  
+    //show a product
     // GET: Show product.
     @RequestMapping(value = { "/product" }, method = RequestMethod.GET)
     public String product(Model model, @RequestParam(value = "code", defaultValue = "") String code) {
@@ -119,12 +123,13 @@ public class AdminController {
         return "product";
     }
  
+    // show product and then update product
     // POST: Save product
     @RequestMapping(value = { "/product" }, method = RequestMethod.POST)
     // Avoid UnexpectedRollbackException (See more explanations)
     @Transactional(propagation = Propagation.NEVER)
     public String productSave(Model model, //
-    		//add 
+    		//add productform to model
             @ModelAttribute("productForm") @Validated ProductInfo productInfo, //
             BindingResult result, //
             final RedirectAttributes redirectAttributes) {
@@ -145,6 +150,7 @@ public class AdminController {
         return "redirect:/productList";
     }
  
+    //show the details of an order
     @RequestMapping(value = { "/order" }, method = RequestMethod.GET)
     public String orderView(Model model, @RequestParam("orderId") String orderId) {
         OrderInfo orderInfo = null;

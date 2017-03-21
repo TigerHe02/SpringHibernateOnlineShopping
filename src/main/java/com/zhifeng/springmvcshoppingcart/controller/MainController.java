@@ -31,6 +31,7 @@ import com.zhifeng.springmvcshoppingcart.model.ProductInfo;
 import com.zhifeng.springmvcshoppingcart.util.Utils;
 import com.zhifeng.springmvcshoppingcart.validator.CustomerInfoValidator;
  
+// this is about cunstomer, including customer list products, buy product, check cart info, place order
 @Controller
 // Enable Hibernate Transaction.
 @Transactional
@@ -47,6 +48,7 @@ public class MainController {
     @Autowired
     private CustomerInfoValidator customerInfoValidator;
  
+    //
     @InitBinder
     public void myInitBinder(WebDataBinder dataBinder) {
         Object target = dataBinder.getTarget();
@@ -201,6 +203,7 @@ public class MainController {
         customerForm.setValid(true);
         CartInfo cartInfo = Utils.getCartInSession(request);
  
+        //save the customer to the cart
         cartInfo.setCustomerInfo(customerForm);
  
         // Redirect to Confirmation page.
@@ -232,7 +235,8 @@ public class MainController {
     // Avoid UnexpectedRollbackException (See more explanations)
     @Transactional(propagation = Propagation.NEVER)
     public String shoppingCartConfirmationSave(HttpServletRequest request, Model model) {
-        CartInfo cartInfo = Utils.getCartInSession(request);
+        //get shopping cart in current session
+    	CartInfo cartInfo = Utils.getCartInSession(request);
  
         // Cart have no products.
         if (cartInfo.isEmpty()) {
@@ -272,6 +276,8 @@ public class MainController {
         return "shoppingCartFinalize";
     }
  
+    //get the image of a product
+    //write it to the output of response
     @RequestMapping(value = { "/productImage" }, method = RequestMethod.GET)
     public void productImage(HttpServletRequest request, HttpServletResponse response, Model model,
             @RequestParam("code") String code) throws IOException {

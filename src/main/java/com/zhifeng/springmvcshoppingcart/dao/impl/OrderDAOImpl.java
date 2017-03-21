@@ -45,6 +45,7 @@ public class OrderDAOImpl implements OrderDAO {
         return value;
     }
  
+    //each order is 
     //save cart into order, and save cartLine info orderDetail
     @Override
     public void saveOrder(CartInfo cartInfo) {
@@ -90,7 +91,8 @@ public class OrderDAOImpl implements OrderDAO {
     // @page = 1, 2, ...
     @Override
     public PaginationResult<OrderInfo> listOrderInfo(int page, int maxResult, int maxNavigationPage) {
-        String sql = "Select new " + OrderInfo.class.getName()//
+        //creat sql query
+    	String sql = "Select new " + OrderInfo.class.getName()//
                 + "(ord.id, ord.orderDate, ord.orderNum, ord.amount, "
                 + " ord.customerName, ord.customerAddress, ord.customerEmail, ord.customerPhone) " + " from "
                 + Order.class.getName() + " ord "//

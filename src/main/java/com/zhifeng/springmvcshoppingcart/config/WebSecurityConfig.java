@@ -15,9 +15,11 @@ import com.zhifeng.springmvcshoppingcart.authentication.AuthenticationService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
+	//this is the bean of the AuthenticationService
    @Autowired
    AuthenticationService myDBAauthenticationService;
- 
+
+   //inject the AuthenticationManagerBuilder bean
    @Autowired
    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
  
