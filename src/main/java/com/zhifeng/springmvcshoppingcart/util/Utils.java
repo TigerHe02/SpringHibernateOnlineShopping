@@ -7,6 +7,8 @@ import com.zhifeng.springmvcshoppingcart.model.CartInfo;
 //get shopping cart in current session
 //the cart can be retrieved from the current session holding the request
 public class Utils {
+	
+	//all are stati methods
  
     // Products in Cart, stored in Session.
     public static CartInfo getCartInSession(HttpServletRequest request) {

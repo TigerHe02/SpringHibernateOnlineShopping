@@ -19,6 +19,7 @@
   
    <div class="page-title">Order List</div>
  
+ 
    <div>Total Order Count: ${paginationResult.totalRecords}</div>
   
    <table border="1" style="width:100%">

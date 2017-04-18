@@ -52,7 +52,7 @@ public class ApplicationContextConfig {
     }
  
     //viewResolver of the dispatcher
-    //the prefix and suffix of the web pages
+    //the prefix and suffix of the web pages to visualize 
     @Bean(name = "viewResolver")
     public InternalResourceViewResolver getViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -73,12 +73,13 @@ public class ApplicationContextConfig {
     }
  
     //configure database
-    //bean name of the dataSource
+    //bean name `of the dataSource
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
  
         // See: ds-hibernate-cfg.properties
+        //the url, name, username, pwd of the mysql database 
         dataSource.setDriverClassName(env.getProperty("ds.database-driver"));
         dataSource.setUrl(env.getProperty("ds.url"));
         dataSource.setUsername(env.getProperty("ds.username"));
@@ -90,6 +91,7 @@ public class ApplicationContextConfig {
     }
  
     //inject dataSource to sessionFactory for management
+    //autowired the datasource bean to the input of the sessionFactory
     @Autowired
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
@@ -117,6 +119,7 @@ public class ApplicationContextConfig {
     }
  
     //configure transactionManager to manage sessionFactory 
+    //autowire the sessionFactory to the transcationManager
     //get a hibernate transaction manager
     //database management
     @Autowired
@@ -127,7 +130,7 @@ public class ApplicationContextConfig {
         return transactionManager;
     }
  
-    //other beans are @service, @component, etc.
+    //other beans are @service, @component, etc. These beans defined in the class
     //DAO beans
     @Bean(name = "accountDAO")
     public AccountDAO getApplicantDAO() {

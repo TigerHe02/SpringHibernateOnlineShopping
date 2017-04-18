@@ -43,12 +43,13 @@ public class AuthenticationService implements UserDetailsService {
         // the authorities of the account
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
  
-        // assign a role to the account
+        // assign a authority to the account
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
  
         //add the role to the authorities
         grantList.add(authority);
  
+        //whether the account is active
         boolean isActive = account.isActive();
  
         //initialize an account with details and its authorities

@@ -17,9 +17,11 @@ public class PaginationResult<E> {
  
    private int maxNavigationPage;
  
+   //the number of the pages to shown in the view
    private List<Integer> navigationPages;
  
    // @page: 1, 2, ..
+   //maxResult is the maximum number of results displayed in a page
    public PaginationResult(Query query, int page, int maxResult, int maxNavigationPage) {
        final int pageIndex = page - 1 < 0 ? 0 : page - 1;
  
@@ -34,10 +36,12 @@ public class PaginationResult<E> {
  
        if (hasResult) {
            // Scroll to position:
+    	   //then don't need to check one by one
            hasResult = resultScroll.scroll(fromRecordIndex);
  
            if (hasResult) {
                do {
+            	   //add to the results 
                    E record = (E) resultScroll.get(0);
                    results.add(record);
                } while (resultScroll.next()//

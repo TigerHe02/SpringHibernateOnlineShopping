@@ -16,6 +16,7 @@ import com.zhifeng.springmvcshoppingcart.authentication.AuthenticationService;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
 	//this is the bean of the AuthenticationService
+	//autowired to the AuthenticationService class
    @Autowired
    AuthenticationService myDBAauthenticationService;
 

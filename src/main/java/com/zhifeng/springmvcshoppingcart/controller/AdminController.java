@@ -89,7 +89,8 @@ public class AdminController {
  
     //show all the orders
     @RequestMapping(value = { "/orderList" }, method = RequestMethod.GET)
-    public String orderList(Model model, //
+    public String orderList(Model model, //the page you want to go to
+    		//the requesting url looks like this: orderList?page=${page} 
             @RequestParam(value = "page", defaultValue = "1") String pageStr) {
         int page = 1;
         try {
@@ -102,6 +103,7 @@ public class AdminController {
         PaginationResult<OrderInfo> paginationResult //
         = orderDAO.listOrderInfo(page, MAX_RESULT, MAX_NAVIGATION_PAGE);
  
+        //the view part can directly use paginationResult.navigationPages
         model.addAttribute("paginationResult", paginationResult);
         return "orderList";
     }
@@ -123,7 +125,7 @@ public class AdminController {
         return "product";
     }
  
-    // show product and then update product
+    // show product and then update product by admin
     // POST: Save product
     @RequestMapping(value = { "/product" }, method = RequestMethod.POST)
     // Avoid UnexpectedRollbackException (See more explanations)
@@ -163,6 +165,7 @@ public class AdminController {
         List<OrderDetailInfo> details = this.orderDAO.listOrderDetailInfos(orderId);
         orderInfo.setDetails(details);
  
+        //view can use orderInfo.amount
         model.addAttribute("orderInfo", orderInfo);
  
         return "order";

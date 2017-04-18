@@ -92,6 +92,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public PaginationResult<OrderInfo> listOrderInfo(int page, int maxResult, int maxNavigationPage) {
         //creat sql query
+    	//first select all the orders
     	String sql = "Select new " + OrderInfo.class.getName()//
                 + "(ord.id, ord.orderDate, ord.orderNum, ord.amount, "
                 + " ord.customerName, ord.customerAddress, ord.customerEmail, ord.customerPhone) " + " from "
